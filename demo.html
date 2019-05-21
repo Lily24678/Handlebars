@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>handlebars-JS的模板引擎</title>
+		<script type="text/javascript" src="js/handlebars-v4.1.1.js" ></script>
+	</head>
+	<style>
+		.comment{
+			color: red;
+		}
+	</style>
+	<body>
+		<div>
+			<h1 class="comment">handlebars 之  basic usage</h1>
+			
+			<div id="demo_1"></div>
+			<script id="entry-template" type="text/x-handlebars-template">
+			  <div class="entry">
+			  	{{!-- 路径表达 --}}
+			  	<p>书名：{{./book}}</p>
+			    <h2>作者信息介绍:</h2>
+			    <p>作者：{{article.author}}</p>
+			    {{! 路径表达 }}
+			    <p>传真：{{article/fax}}</p>
+			    <p>地址：{{this/article/address}}</p>
+			    <h1>{{title}}</h1>
+			    <div class="body">
+			      {{body}}
+			    </div>
+				<h3>正文——获取方式1：会返回一个经过编码的HTML</h3>
+				{{content}}
+				<h3>正文——获取方式2：未经编码</h3>
+				{{{content}}}
+			  </div>
+			</script>	
+		</div>
+		
+		<div>
+			<h1 class="comment">handlebars 之  helper</h1>
+			<ul>
+				<li>自定义helper要放在模板变量赋值前</li>
+				<li>handlebars不会编码<b class="comment">Handlebars.SafeString</b>。如果你自定义一个helper，返回一段HTML代码，你需要返回new Handlebars.SafeString(result)这里将会对传入的参数进行编码，返回值是“安全的”，所以就算你不使用{{{，handlebars也不会再次编码了。</li>
+			</ul>
+			
+			<div id="demo_2"></div>
+			
+			<script id="entry-template_2" type="text/x-handlebars-template">
+				<h2>常用网站:</h2>
+				{{{link network}}}
+			</script>
+		</div>
+		
+		<div>
+			<h1 class="comment">handlebars 之  helper —— Block Expressions</h1>
+			<ul>
+				<li>表现方式一、</li>
+				<li>表现方式二、</li>
+				<li>表现方式三、</li>
+				<li>简单的迭代、</li>
+			</ul>
+			<div id="demo_3"></div>
+			
+			<script id="entry-template_3" type="text/x-handlebars-template">
+				<h2>方式一、</h2>
+				{{#list people}}
+					{{firstName}} {{lastName}}
+				{{/list}}
+				
+				<div class="entry">
+					<h2>方式二、</h2>
+					<div class="body">
+					    {{#noop}}{{declare}}{{/noop}}
+					</div>
+				</div>	
+				
+				<div class="entry">
+					<h2>方式三、简单的迭代一、</h2>
+				  	{{#with story}}
+				    <div class="intro">{{{intro}}}</div>
+				    <div class="body">{{{body}}}</div>
+				  	{{/with}}
+				</div>	
+				
+				<div class="comments">
+					<h2>简单的迭代二、</h2>
+				  	{{#each comments}}
+					    <div class="comment">
+					      <h3>{{subject}}</h3>
+					    </div>
+				 	 {{/each}}
+				</div>				
+			</script>
+		</div>
+		
+		
+		<div>
+			<h1 class="comment">handlebars 之  helper —— Conditionals</h1>
+			<div id="demo_4"></div>
+			<script id="entry-template_4" type="text/x-handlebars-template">
+			{{#if isActive}}
+			  <img src="images/杯子蛋糕.png" alt="Active">
+			{{else if isInactive}}
+			  <img src="images/热狗.png" alt="Inactive">
+			{{else}}
+				<img src="images/茶.png" alt="Inactive">
+			{{/if}}	
+			</script>
+		</div>
+		
+		<div>
+			<h1 class="comment">handlebars 之  helper —— Hash Arguments</h1>
+			<ul>
+				<li>一、参数</li>
+				<li>二、私有变量</li>
+			</ul>
+			<div id="demo_5"></div>
+			<script id="entry-template_5" type="text/x-handlebars-template">
+				<h3>一、参数</h3>
+				{{#list nav id="nav-bar" class="top"}}
+				  <a href="{{url}}">{{title}}</a>
+				{{/list}}
+				
+				<h3>二、私有变量</h3>
+				{{#list-index array}}
+				  {{@index}}. {{title}}
+				{{/list-index}}				
+			</script>
+		</div>		
+		
+		<script type="text/javascript" src="js/demo.js" ></script>
+
+	</body>
+</html>
